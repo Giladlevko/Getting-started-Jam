@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://kt70r0251e5b"]
+
+[ext_resource type="Script" uid="uid://0le461dktj8w" path="res://scripts/rock.gd" id="1_mek2u"]
+[ext_resource type="Texture2D" uid="uid://blq5h6vq7m2oe" path="res://assets/rock.png" id="2_ik6fu"]
+[ext_resource type="PackedScene" uid="uid://bamsqapdab6cf" path="res://scenes/bar.tscn" id="3_ik6fu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46y1q"]
+radius = 14.0
+
+[node name="rock" type="CharacterBody2D"]
+script = ExtResource("1_mek2u")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_ik6fu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_46y1q")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Node2D" parent="." instance=ExtResource("3_ik6fu")]

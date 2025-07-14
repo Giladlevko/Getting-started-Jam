@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bamsqapdab6cf"]
+
+[ext_resource type="Script" uid="uid://g8jmxsie47pk" path="res://scripts/bar.gd" id="1_x848m"]
+[ext_resource type="Texture2D" uid="uid://26481yl7w3vn" path="res://assets/New Piskel.png" id="3_qdsxc"]
+
+[node name="Node2D" type="Node2D"]
+texture_filter = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="bar" type="Control" parent="CanvasLayer"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x848m")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/bar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_bottom = 0.111
+offset_right = -3.05176e-05
+offset_bottom = 0.0399971
+grow_horizontal = 2
+theme_override_constants/margin_top = 10
+
+[node name="backgroundRect" type="ColorRect" parent="CanvasLayer/bar/MarginContainer"]
+custom_minimum_size = Vector2(320, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 1, 0, 1)
+
+[node name="arrow_rect" type="TextureRect" parent="CanvasLayer/bar/MarginContainer/backgroundRect"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_top = 6.0
+offset_right = -150.0
+offset_bottom = 27.0
+grow_horizontal = 2
+texture = ExtResource("3_qdsxc")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/bar/MarginContainer/backgroundRect/arrow_rect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -2.0
+offset_right = 2.0
+offset_bottom = 21.0
+grow_horizontal = 2
+color = Color(1, 1, 1, 0)
+
+[node name="hitRect" type="ColorRect" parent="CanvasLayer/bar/MarginContainer"]
+custom_minimum_size = Vector2(1, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 0, 0, 1)
