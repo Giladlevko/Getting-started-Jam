@@ -1,0 +1,103 @@
+[gd_scene load_steps=16 format=3 uid="uid://cxs1u4ni0agi2"]
+
+[ext_resource type="Script" uid="uid://bg31l05awd56t" path="res://scripts/wizard.gd" id="1_leome"]
+[ext_resource type="Texture2D" uid="uid://ca8hbk847l3b4" path="res://assets/wizard/sprite (2).png" id="2_j4iv4"]
+[ext_resource type="PackedScene" uid="uid://di4pk3kipg0l4" path="res://scenes/pop_up.tscn" id="3_j4iv4"]
+[ext_resource type="Texture2D" uid="uid://buu3yq4a5rit" path="res://assets/wizard/sprite (1).png" id="3_nmnu7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_leome"]
+size = Vector2(20, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmnu7"]
+atlas = ExtResource("2_j4iv4")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ipgv"]
+atlas = ExtResource("2_j4iv4")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8qlyk"]
+atlas = ExtResource("2_j4iv4")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jkov"]
+atlas = ExtResource("2_j4iv4")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ba5mt"]
+atlas = ExtResource("3_nmnu7")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_var7a"]
+atlas = ExtResource("3_nmnu7")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1g42w"]
+atlas = ExtResource("3_nmnu7")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otiyp"]
+atlas = ExtResource("3_nmnu7")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j4iv4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmnu7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ipgv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8qlyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4jkov")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ba5mt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_var7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1g42w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otiyp")
+}],
+"loop": false,
+"name": &"teleport",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j4iv4"]
+size = Vector2(220, 70)
+
+[node name="wizard" type="CharacterBody2D"]
+script = ExtResource("1_leome")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_leome")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_j4iv4")
+animation = &"idle"
+autoplay = "idle"
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_j4iv4")
+
+[node name="pop_up" parent="." instance=ExtResource("3_j4iv4")]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

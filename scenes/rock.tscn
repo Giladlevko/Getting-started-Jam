@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_46y1q"]
 radius = 14.0
 
-[node name="rock" type="CharacterBody2D"]
+[node name="rock" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_mek2u")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,4 +20,4 @@ shape = SubResource("CircleShape2D_46y1q")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Node2D" parent="." instance=ExtResource("3_ik6fu")]
+[node name="bar" parent="." instance=ExtResource("3_ik6fu")]

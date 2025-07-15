@@ -1,0 +1,49 @@
+if {done first upgrade} == true:
+	jump seconed upgrade
+else:
+	jump first upgrade
+label first upgrade
+blacksmith: Hello again gallant Knight, want me to fix your sword?
+label want to upgrade?
+- Yes please fix my sword (35 coins) | [if Global.coin_amount >=35] [else="disable"]
+	set {done first upgrade} = true
+	[signal arg="sword_upgrade"]
+	set {Global.coin_amount} -= 35.0
+	set {Global.sword_damage} += 3.0
+	[wait time="6.1"]
+	blacksmith: Here, the sword wil preform much better now. Come back for another upgrade if you find any precious metals!
+	[wait_input]
+	blacksmith: Liam, I have one more thing I wanted to ask.
+	Knight: Of course what is it friend?
+	blacksmith: I sense that on your journey you will need a companion, someone who would help you guide yourself...
+	blacksmith: I adopted a dog I found shortly after my wife passed... He helped me find the right path once again, you should take him. he will help you too...
+	- Yes I would love to take him
+		Knight: I will take him, a companion will be great to have. Thank you!
+		label getting dog!
+		blacksmith: Great! you have made the right choice. I found him to be quite special. Soon you will see what I mean.
+		blacksmith: I will call him!
+		audio "res://assets/audio/calling-whistle-41861.mp3" [volume="-15.0" bus="sfx"]
+		[wait time="2.5"]
+		[signal arg="calling_dog"]
+		[wait_input]
+		blacksmith: Oh! he seems to like you!
+	- No I have no need for him
+		Knight: A lovely offer... however one I cannot except. I do not need this dog. I will continue this journey alone.
+		blacksmith: Liam, a companion is no weakness. It is a strength!
+		blacksmith: Trust me... you will not regret taking him.
+		- I do not need him
+			Knight: Like I said, I do not neeed him. Thank you for the Kind offer.
+			blacksmith: Very well gallant Knight. I hope you are correct.
+		- Fine, I trust you
+			Knight: I trust you are right. I will take him.
+			jump getting dog!
+	blacksmith: The path onward leads to an old mine. Long time since I've been there...
+	blacksmith: Please be careful... Sir Bauer.
+- Sorry I dont have enough coins
+	blacksmith: No worries come back when you do!
+	[signal arg="stoped_speaking"]
+	[end_timeline]
+	blacksmith: Hello again gallant Knight, want me to fix your sword?
+	jump want to upgrade?
+[signal arg="timeline_over"]
+[end_timeline]

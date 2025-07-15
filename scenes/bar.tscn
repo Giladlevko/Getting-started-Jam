@@ -66,3 +66,15 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(1, 0, 0, 1)
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/bar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+
+[node name="Label" type="Label" parent="CanvasLayer/bar/MarginContainer2"]
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="CanvasLayer/bar/MarginContainer2/Label"]
+wait_time = 4096.0

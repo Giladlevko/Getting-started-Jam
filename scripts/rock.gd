@@ -32,8 +32,8 @@ func _physics_process(delta: float) -> void:
 	SPEED = move_toward(SPEED, 0, delta)
 	if SPEED > 0:
 		lost_impetus = move_toward(lost_impetus,0,delta)
-	if snapped(lost_impetus,0.1) == 0 or lost_impetus == 0:
+	if floor(lost_impetus) == 0 or lost_impetus == 0:
 		SignalBus.lose_of_hitbar.emit()
-		speed_level = clamp(speed_level-1,0,50)
+		speed_level = clamp(speed_level-1,0,50) 
 		lost_impetus = 10
 	move_and_slide()

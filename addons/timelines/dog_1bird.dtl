@@ -1,0 +1,19 @@
+Knight: Ahh... I knew I shouldn't have taken you little dog...
+Knight: I can't carry you and jump at the same time...
+Knight: I can't carry you and jump at the same time...
+Knight: Looks like you're going to have to go back to the blacksmith...
+\dog: You need not carry me good Knight!
+Knight: Did you just... speak? \
+Am I bewitched?
+\dog: No Sir, 'tis me who's bewitched!, long ago in my travles with another knight I've swallowed a strange stone!
+\dog: The knight said 'twas a Charm, called it Charm of Rebirth!
+\dog: Since that day I was able to become a bird!
+Knight: Must be something I ate... I'm hallucinating! got to be!
+\dog: no sire, 'tis true! \
+A bird I tell you!
+Knight: I knew Travelling would take a toll on my mind but a talking dog?
+Knight: Oh Lord whatever I did to deserve this, I repent!
+\dog: Sire, continue onward! You'll see!\
+ I've swallowed a Charm I tell you!
+[signal arg="dog_end"]
+[end_timeline]

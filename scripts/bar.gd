@@ -3,19 +3,32 @@ extends Control
 @onready var arrow: TextureRect = $MarginContainer/backgroundRect/arrow_rect
 @onready var hit_rect: ColorRect = $MarginContainer/hitRect
 @onready var arrow_hit_zone: ColorRect = $MarginContainer/backgroundRect/arrow_rect/ColorRect
-
-
+var timer_started:bool
+@onready var label: Label = $MarginContainer2/Label
+@onready var timer: Timer = $MarginContainer2/Label/Timer
+var bar_started: bool
 @onready var bar_container: MarginContainer = $MarginContainer
 var start_position: float
 var screen_zoom:float
 var tween
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	label.visible = false
+	Dialogic.signal_event.connect(start_timer)
 	SignalBus.lose_of_hitbar.connect(lose_hitbar)
 	start_position = arrow.position.x
 	screen_zoom = get_viewport().size.x/640
-	print("start_position: ", start_position )
+	print("start_position: ", start_position)
 	
+	
+
+func start_timer(arg: String):
+	if arg == "start_timer":
+		if !timer_started:
+			timer.start()
+			label.visible = true
+			timer_started = true
+			bar_started = true
 	
 
 func lose_hitbar():
@@ -26,10 +39,10 @@ func lose_hitbar():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if arrow.position.x == start_position:
+	if arrow.position.x == start_position and bar_started:
 		tween = get_tree().create_tween()
 		move_arrow()
-	if Input.is_action_just_pressed("ui_accept") and tween.is_valid():
+	if tween and Input.is_action_just_pressed("ui_accept") and tween.is_valid():
 		var hit_size:float
 		tween.kill()
 		if arrow_hit_zone.get_global_rect().intersects(hit_rect.get_global_rect()):
@@ -43,10 +56,10 @@ func _process(delta: float) -> void:
 			SignalBus.reduct_speed.emit()
 			print("---------------you-lose---------------")
 			
-	if !tween.is_valid() and Input.is_action_just_pressed("ui_accept"):
+	if tween and !tween.is_valid() and Input.is_action_just_pressed("ui_accept"):
 		tween = get_tree().create_tween()
 		move_arrow(310,0,(310 - arrow.position.x)*2/310)
-
+	label.text = str(snapped(timer.wait_time-timer.time_left,0.1))
 func move_arrow(end_pos:float = 310,start_pos:float = 0,speed:float = 2):
 	tween.tween_property(arrow,"position:x",end_pos,speed)
 	tween.tween_property(arrow,"position:x",start_pos,2)
