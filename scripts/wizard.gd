@@ -9,6 +9,7 @@ var dialog_unlocked:bool = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Dialogic.timeline_ended.connect(teleport)
+	
 	pass # Replace with function body.
 
 ################ animation made by KingBell ################
@@ -16,18 +17,22 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	dialog_string = "dialog_" + str(dialog_id)
-	if in_area and Input.is_action_just_pressed("space") and dialog_unlocked:
+	if in_area and Input.is_action_just_pressed("space"):
 		Dialogic.start(dialog_string)
 		print(dialog_string)
-		dialog_id = 2
-		dialog_unlocked = false
+		in_area = false
+		
 
 func teleport():
 	anim.play("teleport")
 	await anim.animation_finished
-	global_position = Vector2(35000,0)
+	global_position = Vector2(35000,-15)
+	dialog_id = 2
+	anim.play("idle")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group('player'):
 		in_area = true
+		if body.velocity.x > 0:
+			SignalBus.reached_end.emit()

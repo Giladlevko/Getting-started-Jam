@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://kt70r0251e5b"]
+[gd_scene load_steps=7 format=3 uid="uid://kt70r0251e5b"]
 
 [ext_resource type="Script" uid="uid://0le461dktj8w" path="res://scripts/rock.gd" id="1_mek2u"]
 [ext_resource type="Texture2D" uid="uid://blq5h6vq7m2oe" path="res://assets/rock.png" id="2_ik6fu"]
 [ext_resource type="PackedScene" uid="uid://bamsqapdab6cf" path="res://scenes/bar.tscn" id="3_ik6fu"]
+
+[sub_resource type="Curve" id="Curve_ik6fu"]
+_data = [Vector2(0.00568181, 0.0449438), 0.0, 5.47623, 0, 0, Vector2(1, 0), -6.7236, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_872ht"]
+colors = PackedColorArray(0.466667, 0.466667, 0.466667, 1, 1, 1, 1, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_46y1q"]
 radius = 14.0
@@ -10,14 +17,40 @@ radius = 14.0
 [node name="rock" type="CharacterBody2D" groups=["player"]]
 script = ExtResource("1_mek2u")
 
+[node name="Node" type="Node" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Node"]
+visible = false
+position = Vector2(0, 14)
+amount = 1
+gravity = Vector2(0, -70)
+tangential_accel_min = -90.0
+tangential_accel_max = -85.0
+scale_amount_curve = SubResource("Curve_ik6fu")
+color_ramp = SubResource("Gradient_872ht")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 texture_filter = 1
 texture = ExtResource("2_ik6fu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 shape = SubResource("CircleShape2D_46y1q")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-
 [node name="bar" parent="." instance=ExtResource("3_ik6fu")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -20)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+
+[node name="curve" type="Node2D" parent="."]
+
+[node name="p2" type="Node2D" parent="curve"]
+position = Vector2(50, -120)
+
+[node name="p1" type="Node2D" parent="curve"]
+
+[node name="p3" type="Node2D" parent="curve"]
+position = Vector2(100, 0)

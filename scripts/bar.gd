@@ -4,10 +4,14 @@ extends Control
 @onready var hit_rect: ColorRect = $MarginContainer/hitRect
 @onready var arrow_hit_zone: ColorRect = $MarginContainer/backgroundRect/arrow_rect/ColorRect
 var timer_started:bool
-@onready var label: Label = $MarginContainer2/Label
-@onready var timer: Timer = $MarginContainer2/Label/Timer
 var bar_started: bool
 @onready var bar_container: MarginContainer = $MarginContainer
+@onready var label: Label = $"../../../MarginContainer2/Label"
+@onready var timer: Timer = $"../../../MarginContainer2/Label/Timer"
+@onready var anim: AnimationPlayer = $AnimationPlayer
+var timer_sec:float
+var timer_min:int
+
 var start_position: float
 var screen_zoom:float
 var tween
@@ -22,14 +26,21 @@ func _ready() -> void:
 	
 	
 
+func stop_timer():
+	timer.stop()
+	anim.play("fade_out")
+
 func start_timer(arg: String):
 	if arg == "start_timer":
+		anim.play("fade_in")
+		await anim.animation_finished
 		if !timer_started:
 			timer.start()
 			label.visible = true
 			timer_started = true
 			bar_started = true
-	
+	if arg == "stop_timer":
+		stop_timer()
 
 func lose_hitbar():
 	print("connected")
@@ -59,7 +70,16 @@ func _process(delta: float) -> void:
 	if tween and !tween.is_valid() and Input.is_action_just_pressed("ui_accept"):
 		tween = get_tree().create_tween()
 		move_arrow(310,0,(310 - arrow.position.x)*2/310)
-	label.text = str(snapped(timer.wait_time-timer.time_left,0.1))
+	
+	timer_sec = snapped(timer.wait_time-timer.time_left -60 * timer_min,0.1)
+	if snapped(timer_sec,0.1) == 60:
+		timer_min += 1
+		timer_sec = 0
+		Global.timer_value = timer_min
+	var mili_sec = str(timer_sec).split(".")[1]
+	var sec = str(timer_sec).split(".")[0]
+	label.text = str(timer_min)+":"+str(sec) +":" + str(mili_sec)
+	
 func move_arrow(end_pos:float = 310,start_pos:float = 0,speed:float = 2):
 	tween.tween_property(arrow,"position:x",end_pos,speed)
 	tween.tween_property(arrow,"position:x",start_pos,2)

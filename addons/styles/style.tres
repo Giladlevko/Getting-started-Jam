@@ -30,9 +30,9 @@ overrides = {}
 script = ExtResource("2_7kafc")
 scene = ExtResource("5_t7tji")
 overrides = {
+"box_distance": "50.0",
 "box_modulate_custom_color": "Color(0.710938, 0.550666, 0.394348, 1)",
-"box_modulate_global_color": "false",
-"box_size": "Vector2(480, 128)"
+"box_modulate_global_color": "false"
 }
 
 [sub_resource type="Resource" id="Resource_8k0y7"]

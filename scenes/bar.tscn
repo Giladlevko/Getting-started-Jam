@@ -1,14 +1,106 @@
-[gd_scene load_steps=3 format=3 uid="uid://bamsqapdab6cf"]
+[gd_scene load_steps=7 format=3 uid="uid://bamsqapdab6cf"]
 
 [ext_resource type="Script" uid="uid://g8jmxsie47pk" path="res://scripts/bar.gd" id="1_x848m"]
 [ext_resource type="Texture2D" uid="uid://26481yl7w3vn" path="res://assets/New Piskel.png" id="3_qdsxc"]
+
+[sub_resource type="Animation" id="Animation_bwlfd"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x848m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qdsxc"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qdsxc"]
+_data = {
+&"RESET": SubResource("Animation_x848m"),
+&"fade_in": SubResource("Animation_bwlfd"),
+&"fade_out": SubResource("Animation_qdsxc")
+}
 
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="bar" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer/Control"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="bar" type="Control" parent="CanvasLayer/Control/SubViewportContainer/SubViewport"]
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -18,7 +110,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x848m")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/bar"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.25
@@ -29,14 +121,14 @@ offset_bottom = 0.0399971
 grow_horizontal = 2
 theme_override_constants/margin_top = 10
 
-[node name="backgroundRect" type="ColorRect" parent="CanvasLayer/bar/MarginContainer"]
+[node name="backgroundRect" type="ColorRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer"]
 custom_minimum_size = Vector2(320, 10)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(0, 1, 0, 1)
 
-[node name="arrow_rect" type="TextureRect" parent="CanvasLayer/bar/MarginContainer/backgroundRect"]
+[node name="arrow_rect" type="TextureRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer/backgroundRect"]
 z_index = 1
 layout_mode = 1
 anchors_preset = 5
@@ -49,32 +141,41 @@ offset_bottom = 27.0
 grow_horizontal = 2
 texture = ExtResource("3_qdsxc")
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/bar/MarginContainer/backgroundRect/arrow_rect"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer/backgroundRect/arrow_rect"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -2.0
-offset_right = 2.0
+offset_left = -20.0
+offset_right = 20.0
 offset_bottom = 21.0
 grow_horizontal = 2
 color = Color(1, 1, 1, 0)
 
-[node name="hitRect" type="ColorRect" parent="CanvasLayer/bar/MarginContainer"]
+[node name="hitRect" type="ColorRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer"]
 custom_minimum_size = Vector2(1, 10)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color(1, 0, 0, 1)
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/bar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar"]
+libraries = {
+&"": SubResource("AnimationLibrary_qdsxc")
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 10
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
 
-[node name="Label" type="Label" parent="CanvasLayer/bar/MarginContainer2"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer2"]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 48
+text = "111"
 
-[node name="Timer" type="Timer" parent="CanvasLayer/bar/MarginContainer2/Label"]
+[node name="Timer" type="Timer" parent="CanvasLayer/Control/MarginContainer2/Label"]
 wait_time = 4096.0
