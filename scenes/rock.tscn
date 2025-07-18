@@ -48,9 +48,9 @@ position_smoothing_enabled = true
 [node name="curve" type="Node2D" parent="."]
 
 [node name="p2" type="Node2D" parent="curve"]
-position = Vector2(50, -120)
+position = Vector2(100, -220)
 
 [node name="p1" type="Node2D" parent="curve"]
 
 [node name="p3" type="Node2D" parent="curve"]
-position = Vector2(100, 0)
+position = Vector2(160, 0)

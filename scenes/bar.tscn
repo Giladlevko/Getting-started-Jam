@@ -1,30 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://bamsqapdab6cf"]
+[gd_scene load_steps=22 format=3 uid="uid://bamsqapdab6cf"]
 
 [ext_resource type="Script" uid="uid://g8jmxsie47pk" path="res://scripts/bar.gd" id="1_x848m"]
 [ext_resource type="Texture2D" uid="uid://26481yl7w3vn" path="res://assets/New Piskel.png" id="3_qdsxc"]
-
-[sub_resource type="Animation" id="Animation_bwlfd"]
-resource_name = "fade_in"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../../..:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
+[ext_resource type="Texture2D" uid="uid://cg5w6b3hotkqi" path="res://New Piskel.png" id="3_x848m"]
+[ext_resource type="Script" uid="uid://bbjvd57q1ue24" path="res://scripts/pause_menue.gd" id="4_7r073"]
+[ext_resource type="Texture2D" uid="uid://bs6iyrqq45uw7" path="res://assets/pausebutton.png" id="5_l1w72"]
+[ext_resource type="AudioStream" uid="uid://blloddy55ltrt" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-2-203594.mp3" id="6_nqcov"]
+[ext_resource type="Theme" uid="uid://c4tuypw33rj6q" path="res://theme.tres" id="6_v67d5"]
+[ext_resource type="Texture2D" uid="uid://ctlusg8rxmng5" path="res://assets/tutorial_at_start.png" id="7_rrntp"]
+[ext_resource type="AudioStream" uid="uid://c7whh4ukksaya" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-7-203601.mp3" id="7_v67d5"]
+[ext_resource type="AudioStream" uid="uid://c2w618lx2dbx1" path="res://assets/audio/hover-button-287656.mp3" id="10_v67d5"]
+[ext_resource type="PackedScene" uid="uid://b8b141rsx8c8x" path="res://scenes/scene_transition.tscn" id="11_rrntp"]
 
 [sub_resource type="Animation" id="Animation_x848m"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../../..:modulate")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -36,14 +29,42 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath("../../../MarginContainer2/Label:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bwlfd"]
+resource_name = "fade_in"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../../MarginContainer2/Label:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_qdsxc"]
@@ -68,13 +89,179 @@ _data = {
 &"fade_out": SubResource("Animation_qdsxc")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7r073"]
+texture = ExtResource("5_l1w72")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+region_rect = Rect2(2, 0, 5, 3)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrntp"]
+texture = ExtResource("5_l1w72")
+texture_margin_left = 1.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+region_rect = Rect2(2, 0, 5, 3)
+modulate_color = Color(0.611765, 0.611765, 0.611765, 1)
+
+[sub_resource type="Animation" id="Animation_rrntp"]
+resource_name = "open_pause_menue"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pause_menue/pause_screen:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(240, 0), Vector2(240, 300)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pause_menue/pause_screen/MarginContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.233333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pause_menue/pause_screen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("audio/open_menue:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_5qaxt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pause_menue/pause_screen:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pause_menue/pause_screen/MarginContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pause_menue/pause_screen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("audio/open_menue:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_cmq8q"]
+resource_name = "close_pause_screen"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("pause_menue/pause_screen:custom_minimum_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(240, 300), Vector2(240, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pause_menue/pause_screen/MarginContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0806),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("pause_menue/pause_screen:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5gm6"]
+_data = {
+&"RESET": SubResource("Animation_5qaxt"),
+&"close_pause_screen": SubResource("Animation_cmq8q"),
+&"open_pause_screen": SubResource("Animation_rrntp")
+}
+
 [node name="Node2D" type="Node2D"]
 texture_filter = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" type="Control" parent="CanvasLayer"]
-modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -101,6 +288,7 @@ size = Vector2i(640, 360)
 render_target_update_mode = 4
 
 [node name="bar" type="Control" parent="CanvasLayer/Control/SubViewportContainer/SubViewport"]
+modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
@@ -129,7 +317,7 @@ size_flags_vertical = 4
 color = Color(0, 1, 0, 1)
 
 [node name="arrow_rect" type="TextureRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer/backgroundRect"]
-z_index = 1
+z_index = 2
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -152,6 +340,19 @@ offset_bottom = 21.0
 grow_horizontal = 2
 color = Color(1, 1, 1, 0)
 
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer"]
+z_index = 1
+custom_minimum_size = Vector2(322, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_x848m")
+region_rect = Rect2(0, 0, 30, 4)
+patch_margin_left = 2
+patch_margin_top = 1
+patch_margin_right = 2
+patch_margin_bottom = 1
+
 [node name="hitRect" type="ColorRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer"]
 custom_minimum_size = Vector2(1, 10)
 layout_mode = 2
@@ -169,13 +370,129 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
+theme_override_constants/margin_top = 26
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer2"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 48
+theme_override_font_sizes/font_size = 32
 text = "111"
 
 [node name="Timer" type="Timer" parent="CanvasLayer/Control/MarginContainer2/Label"]
 wait_time = 4096.0
+
+[node name="Control" type="Control" parent="CanvasLayer/Control" node_paths=PackedStringArray("pause_button", "resume_button", "to_main_button")]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_7r073")
+pause_button = NodePath("pause_menue/HBoxContainer/Button")
+resume_button = NodePath("pause_menue/pause_screen/MarginContainer/vBoxContainer/resume_Button")
+to_main_button = NodePath("pause_menue/pause_screen/MarginContainer/vBoxContainer/to_main_Button")
+
+[node name="pause_menue" type="MarginContainer" parent="CanvasLayer/Control/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 44
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/Control/pause_menue"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Button" type="Button" parent="CanvasLayer/Control/Control/pause_menue/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_7r073")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7r073")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rrntp")
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/Control/pause_menue/HBoxContainer"]
+layout_mode = 2
+
+[node name="pause_screen" type="NinePatchRect" parent="CanvasLayer/Control/Control/pause_menue"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme = ExtResource("6_v67d5")
+texture = ExtResource("7_rrntp")
+region_rect = Rect2(41, 42, 7, 7)
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/Control/pause_menue/pause_screen"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="vBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("6_v67d5")
+text = "Paused"
+
+[node name="resume_Button" type="Button" parent="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="to_main_Button" type="Button" parent="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="audio" type="Node" parent="CanvasLayer/Control/Control"]
+
+[node name="press" type="AudioStreamPlayer" parent="CanvasLayer/Control/Control/audio"]
+stream = ExtResource("6_nqcov")
+volume_db = -0.36
+
+[node name="hover" type="AudioStreamPlayer" parent="CanvasLayer/Control/Control/audio"]
+stream = ExtResource("7_v67d5")
+volume_db = -28.109
+
+[node name="open_menue" type="AudioStreamPlayer" parent="CanvasLayer/Control/Control/audio"]
+stream = ExtResource("10_v67d5")
+volume_db = -23.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/Control"]
+process_mode = 3
+libraries = {
+&"": SubResource("AnimationLibrary_i5gm6")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="CanvasLayer/Control/Control"]
+layer = 0
+
+[node name="scene_transition" parent="CanvasLayer/Control/Control/CanvasLayer" instance=ExtResource("11_rrntp")]
+process_mode = 3
+
+[connection signal="mouse_entered" from="CanvasLayer/Control/Control/pause_menue/HBoxContainer/Button" to="CanvasLayer/Control/Control" method="on_button_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Control/Control/pause_menue/HBoxContainer/Button" to="CanvasLayer/Control/Control" method="_on_pause_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer/resume_Button" to="CanvasLayer/Control/Control" method="on_button_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer/resume_Button" to="CanvasLayer/Control/Control" method="_on_pause_button_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer/to_main_Button" to="CanvasLayer/Control/Control" method="on_button_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Control/Control/pause_menue/pause_screen/MarginContainer/vBoxContainer/to_main_Button" to="CanvasLayer/Control/Control" method="_on_to_main_button_pressed"]

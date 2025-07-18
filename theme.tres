@@ -1,4 +1,10 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://c4tuypw33rj6q"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c4tuypw33rj6q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfk0"]
+bg_color = Color(0.921467, 0.716389, 0.540603, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vj6dk"]
+bg_color = Color(0.739371, 0.501762, 0.284065, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvktn"]
 bg_color = Color(0, 0.807882, 0.282053, 1)
@@ -7,6 +13,13 @@ bg_color = Color(0, 0.807882, 0.282053, 1)
 bg_color = Color(1, 0.172549, 0.14902, 1)
 
 [resource]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/font_sizes/font_size = 32
+Button/styles/hover = SubResource("StyleBoxFlat_cjfk0")
+Button/styles/normal = SubResource("StyleBoxFlat_vj6dk")
+Button/styles/pressed = SubResource("StyleBoxFlat_cjfk0")
+Label/font_sizes/font_size = 32
+Label/styles/normal = null
 ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
 ProgressBar/styles/background = SubResource("StyleBoxFlat_wvktn")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_e1x85")

@@ -259,6 +259,9 @@ centered = false
 
 [node name="wizard" parent="." instance=ExtResource("8_b121j")]
 z_index = -1
-position = Vector2(100, -15)
+position = Vector2(100, -11)
 
-[node name="scene_transition" parent="." instance=ExtResource("9_8c41q")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="scene_transition" parent="CanvasLayer" instance=ExtResource("9_8c41q")]

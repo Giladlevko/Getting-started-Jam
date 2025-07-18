@@ -22,4 +22,5 @@ wizard: If you wish I can turn back time, and so you will have another chance.
 	[end_timeline]
 label end
 wizard: Now go back to your cabin and leave me be peasant, I must concentrate...
+[signal arg="game_over"]
 [end_timeline]

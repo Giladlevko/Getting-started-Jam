@@ -20,15 +20,19 @@ func _ready() -> void:
 	label.visible = false
 	Dialogic.signal_event.connect(start_timer)
 	SignalBus.lose_of_hitbar.connect(lose_hitbar)
+	SignalBus.reached_end.connect(on_reached_end)
 	start_position = arrow.position.x
 	screen_zoom = get_viewport().size.x/640
 	print("start_position: ", start_position)
 	
 	
 
-func stop_timer():
+func on_reached_end():
+	print("bar connected")
 	timer.stop()
 	anim.play("fade_out")
+
+
 
 func start_timer(arg: String):
 	if arg == "start_timer":
@@ -39,8 +43,7 @@ func start_timer(arg: String):
 			label.visible = true
 			timer_started = true
 			bar_started = true
-	if arg == "stop_timer":
-		stop_timer()
+
 
 func lose_hitbar():
 	print("connected")
@@ -53,7 +56,7 @@ func _process(delta: float) -> void:
 	if arrow.position.x == start_position and bar_started:
 		tween = get_tree().create_tween()
 		move_arrow()
-	if tween and Input.is_action_just_pressed("ui_accept") and tween.is_valid():
+	if tween and Input.is_action_just_pressed("space") and tween.is_valid():
 		var hit_size:float
 		tween.kill()
 		if arrow_hit_zone.get_global_rect().intersects(hit_rect.get_global_rect()):
@@ -67,7 +70,7 @@ func _process(delta: float) -> void:
 			SignalBus.reduct_speed.emit()
 			print("---------------you-lose---------------")
 			
-	if tween and !tween.is_valid() and Input.is_action_just_pressed("ui_accept"):
+	if tween and !tween.is_valid() and Input.is_action_just_pressed("space"):
 		tween = get_tree().create_tween()
 		move_arrow(310,0,(310 - arrow.position.x)*2/310)
 	

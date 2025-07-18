@@ -16,3 +16,8 @@ func on_event(arg: String):
 		scene_transition.anim.play("fade_in")
 		await scene_transition.anim.animation_finished
 		get_tree().reload_current_scene()
+	if arg == "game_over":
+		scene_transition.anim.play("fade_in")
+		await scene_transition.anim.animation_finished
+		print("should transition to main menue")
+		pass

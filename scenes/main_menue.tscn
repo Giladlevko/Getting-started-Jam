@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://bv7hln4b1fosr"]
+
+[ext_resource type="Script" uid="uid://dki28f1b74t3j" path="res://scripts/main_menue.gd" id="1_gnign"]
+[ext_resource type="PackedScene" uid="uid://b8b141rsx8c8x" path="res://scenes/scene_transition.tscn" id="2_q62vu"]
+[ext_resource type="Theme" uid="uid://c4tuypw33rj6q" path="res://theme.tres" id="3_37yx3"]
+[ext_resource type="AudioStream" uid="uid://blloddy55ltrt" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-2-203594.mp3" id="4_37yx3"]
+[ext_resource type="AudioStream" uid="uid://c7whh4ukksaya" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-7-203601.mp3" id="5_g6ys8"]
+[ext_resource type="AudioStream" uid="uid://g6ct8qrlyhr7" path="res://assets/audio/music for main menue.mp3" id="6_g6ys8"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_2t6ad"]
+specular_color = Color(0.162066, 0.162066, 0.162066, 1)
+
+[node name="main_menue" type="Control" node_paths=PackedStringArray("play_button", "credits_button", "quit_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gnign")
+play_button = NodePath("NinePatchRect/VBoxContainer/play_button")
+credits_button = NodePath("NinePatchRect/VBoxContainer/credits_button")
+quit_button = NodePath("NinePatchRect/VBoxContainer/quit_button")
+
+[node name="scene_transition" parent="." instance=ExtResource("2_q62vu")]
+z_index = 1
+layout_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0.169245, 0.169245, 0.169245, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_2t6ad")
+
+[node name="vBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -143.5
+offset_right = 143.5
+offset_bottom = 67.0
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="Control" type="Control" parent="NinePatchRect/vBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NinePatchRect/vBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Game Name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="play_button" type="Button" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_37yx3")
+theme_override_font_sizes/font_size = 48
+text = "Play!"
+
+[node name="quit_button" type="Button" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_37yx3")
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+
+[node name="credits_button" type="Button" parent="NinePatchRect/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_37yx3")
+theme_override_font_sizes/font_size = 48
+text = "Credits"
+
+[node name="audio" type="Node" parent="."]
+
+[node name="press" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("4_37yx3")
+volume_db = -0.36
+
+[node name="hover" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("5_g6ys8")
+volume_db = -28.109
+
+[node name="music" type="AudioStreamPlayer" parent="audio"]
+stream = ExtResource("6_g6ys8")
+volume_db = -75.0
+autoplay = true
+
+[connection signal="mouse_entered" from="NinePatchRect/VBoxContainer/play_button" to="." method="on_button_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/play_button" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/VBoxContainer/quit_button" to="." method="on_button_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="mouse_entered" from="NinePatchRect/VBoxContainer/credits_button" to="." method="on_button_mouse_entered"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/credits_button" to="." method="_on_credits_button_pressed"]
