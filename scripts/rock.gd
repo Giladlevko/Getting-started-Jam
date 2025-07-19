@@ -2,9 +2,6 @@ extends CharacterBody2D
 @onready var p_1: Node2D = $curve/p1
 @onready var p_2: Node2D = $curve/p2
 @onready var p_3: Node2D = $curve/p3
-
-
-@onready var particles: CPUParticles2D = $Node/CPUParticles2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 var speed_level:int
@@ -18,9 +15,7 @@ func _ready() -> void:
 	SignalBus.add_speed.connect(speed_up)
 	SignalBus.reduct_speed.connect(slow_down)
 	SignalBus.reached_end.connect(on_end_reached)
-	particles.amount = 1
-	particles.linear_accel_max = 0
-	particles.radial_accel_max = 0
+
 
 func on_end_reached():
 	reached_end = true
@@ -41,10 +36,6 @@ func slow_down():
 func speed_up():
 	speed_level = clamp(speed_level + 1,0,50)
 	lost_impetus = 10
-	particles.amount = clamp(particles.amount + 2,0,50)
-	print("particles.amount:",particles.amount)
-	particles.linear_accel_max = clamp(particles.amount + 1,0,25)
-	particles.radial_accel_max = clamp(particles.amount + 3,0,100)
 	SPEED = clamp(speed_level*10,0,500)
 	print(SPEED,"-speed")
 
@@ -53,8 +44,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		print("velocity.x",velocity.x)
 		if sprite.rotation != 4*PI:
-			var tween = get_tree().create_tween()
-			tween.tween_property(sprite,"rotation",sprite.rotation + 4 * PI,1.2).set_trans(1).set_ease(Tween.EASE_OUT)
+			var tween = get_tree().create_tween().bind_node(self)
+			tween.tween_property(sprite,"rotation",snapped(sprite.rotation + 4 * PI,PI),1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		#tween.tween_property(sprite,"position",position + Vector2(80,14),2).set_trans(1).set_ease(Tween.EASE_IN_OUT)
 		sprite.global_position = bezier(time)
 		time+=delta/2
@@ -62,7 +53,6 @@ func _physics_process(delta: float) -> void:
 			landed = true
 			print("landed",landed)
 		
-	particles.position = global_position + Vector2(0,14)
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -73,15 +63,10 @@ func _physics_process(delta: float) -> void:
 		sprite.rotation += ((velocity.x)/30) * delta
 		SPEED = move_toward(SPEED, 0, delta)
 		if SPEED > 0:
-			particles.emitting = true
 			lost_impetus = move_toward(lost_impetus,0,delta)
-		else: particles.emitting = false
 		if floor(lost_impetus) == 0:
 			SignalBus.lose_of_hitbar.emit()
 			speed_level = clamp(speed_level-1,0,50)
-			particles.amount = clamp(particles.amount - 2,0,50)
-			particles.linear_accel_max = clamp(particles.amount - 1,0,25)
-			particles.radial_accel_max = clamp(particles.amount - 3,0,100)
 			lost_impetus = 10
 			SPEED = (10 * speed_level)
 			print("SPEED ",SPEED," ,, ","speed_level",speed_level)

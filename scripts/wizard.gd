@@ -15,7 +15,7 @@ func _ready() -> void:
 ################ animation made by KingBell ################
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	dialog_string = "dialog_" + str(dialog_id)
 	if in_area and Input.is_action_just_pressed("space"):
 		Dialogic.start(dialog_string)

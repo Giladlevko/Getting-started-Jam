@@ -11,10 +11,15 @@ var bar_started: bool
 @onready var anim: AnimationPlayer = $AnimationPlayer
 var timer_sec:float
 var timer_min:int
+@onready var music: AudioStreamPlayer = $"../../../../../audio/music"
+@onready var success: AudioStreamPlayer = $"../../../../../audio/success"
+@onready var fail: AudioStreamPlayer = $"../../../../../audio/fail"
 
+var arrow_dir: int = 1
 var start_position: float
 var screen_zoom:float
 var tween
+var end_position:int = 310
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	label.visible = false
@@ -29,13 +34,19 @@ func _ready() -> void:
 
 func on_reached_end():
 	print("bar connected")
-	timer.stop()
+	timer.paused = true
+	var tween_music = get_tree().create_tween().bind_node(self)
+	tween_music.tween_property(music,"volume_db",-40,2)
 	anim.play("fade_out")
+	bar_started = false
 
 
 
 func start_timer(arg: String):
 	if arg == "start_timer":
+		music.play()
+		var tween_music = get_tree().create_tween().bind_node(self)
+		tween_music.tween_property(music,"volume_db",-14,6)
 		anim.play("fade_in")
 		await anim.animation_finished
 		if !timer_started:
@@ -49,14 +60,14 @@ func lose_hitbar():
 	print("connected")
 	var hit_size:float
 	hit_size =clamp(hit_rect.custom_minimum_size.x - 1,1,50)
-	get_tree().create_tween().tween_property(hit_rect,"custom_minimum_size:x",hit_size,0.3)
+	get_tree().create_tween().bind_node(self).tween_property(hit_rect,"custom_minimum_size:x",hit_size,0.3)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if arrow.position.x == start_position and bar_started:
 		tween = get_tree().create_tween()
 		move_arrow()
-	if tween and Input.is_action_just_pressed("space") and tween.is_valid():
+	if tween and Input.is_action_just_pressed("space") and tween.is_valid() and bar_started:
 		var hit_size:float
 		tween.kill()
 		if arrow_hit_zone.get_global_rect().intersects(hit_rect.get_global_rect()):
@@ -64,16 +75,21 @@ func _process(delta: float) -> void:
 			SignalBus.add_speed.emit()
 			hit_size =clamp(hit_rect.custom_minimum_size.x + 1,1,50)
 			get_tree().create_tween().tween_property(hit_rect,"custom_minimum_size:x",hit_size,0.3)
-			
+			success.play()
 			
 		else:
 			SignalBus.reduct_speed.emit()
+			fail.play()
 			print("---------------you-lose---------------")
 			
-	if tween and !tween.is_valid() and Input.is_action_just_pressed("space"):
+	if tween and !tween.is_valid() and Input.is_action_just_pressed("space") and bar_started:
 		tween = get_tree().create_tween()
-		move_arrow(310,0,(310 - arrow.position.x)*2/310)
-	
+		tween.bind_node(self)
+		
+		if arrow_dir == 1:
+			move_arrow(end_position,0,(end_position - arrow.position.x)*2/end_position)
+		else:
+			move_arrow(start_position,end_position,(abs((start_position - arrow.position.x)*2/end_position)),false)
 	timer_sec = snapped(timer.wait_time-timer.time_left -60 * timer_min,0.1)
 	if snapped(timer_sec,0.1) == 60:
 		timer_min += 1
@@ -83,8 +99,20 @@ func _process(delta: float) -> void:
 	var sec = str(timer_sec).split(".")[0]
 	label.text = str(timer_min)+":"+str(sec) +":" + str(mili_sec)
 	
-func move_arrow(end_pos:float = 310,start_pos:float = 0,speed:float = 2):
-	tween.tween_property(arrow,"position:x",end_pos,speed)
-	tween.tween_property(arrow,"position:x",start_pos,2)
 	
+	if Input.is_action_pressed("ui_up"):
+		timer.paused=true
+		print("timer_min:",timer_min,"sec: ",sec,"mili_sec: ",mili_sec,"timer.time_left:",timer.time_left)
+	if tween and tween.is_valid():
+		if round(arrow.position.x) == start_position:
+			arrow_dir = 1
+		if round(arrow.position.x) == end_position:
+			arrow_dir = -1
+
+
+func move_arrow(end_pos:float = 310,start_pos:float = 0,speed:float = 2,second_tween_on:bool = true):
+	tween.tween_property(arrow,"position:x",end_pos,speed)
+	if second_tween_on:
+		tween.tween_property(arrow,"position:x",start_pos,2)
+	tween.bind_node(self)
 	

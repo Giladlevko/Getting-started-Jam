@@ -3,12 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://b8b141rsx8c8x" path="res://scenes/scene_transition.tscn" id="1_kmqx5"]
 [ext_resource type="Script" uid="uid://cjnsjdsx174gu" path="res://scripts/credit.gd" id="1_st0h4"]
 [ext_resource type="Theme" uid="uid://c4tuypw33rj6q" path="res://theme.tres" id="3_32mfc"]
+[ext_resource type="Texture2D" uid="uid://ctlusg8rxmng5" path="res://assets/tutorial_at_start.png" id="3_y6cwi"]
 [ext_resource type="AudioStream" uid="uid://blloddy55ltrt" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-2-203594.mp3" id="4_mkchp"]
 [ext_resource type="AudioStream" uid="uid://c7whh4ukksaya" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-7-203601.mp3" id="5_y6cwi"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_8idvq"]
-
-[node name="credits" type="Control" node_paths=PackedStringArray("return_button")]
+[node name="credits" type="Control" node_paths=PackedStringArray("return_button", "scene_transition")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,20 +16,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_st0h4")
 return_button = NodePath("NinePatchRect/VBoxContainer2/margin/Button")
+scene_transition = NodePath("scene_transition")
 
 [node name="scene_transition" parent="." instance=ExtResource("1_kmqx5")]
+visible = false
 z_index = 1
 layout_mode = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-self_modulate = Color(0.197937, 0.197937, 0.197937, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CanvasTexture_8idvq")
+texture = ExtResource("3_y6cwi")
+region_rect = Rect2(19, 14, 4, 5)
 
 [node name="VBoxContainer2" type="MarginContainer" parent="NinePatchRect"]
 layout_mode = 1
@@ -44,6 +45,7 @@ theme_override_constants/margin_top = 20
 [node name="title" type="VBoxContainer" parent="NinePatchRect/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
 theme_override_constants/separation = 25
 
 [node name="Control" type="Control" parent="NinePatchRect/VBoxContainer2/title"]
@@ -57,37 +59,48 @@ size_flags_horizontal = 4
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("3_32mfc")
+theme_override_font_sizes/font_size = 48
 text = "Credits:"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/VBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 size_flags_vertical = 4
+theme = ExtResource("3_32mfc")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 50
+size_flags_horizontal = 8
+theme_override_constants/separation = 55
 
 [node name="Control" type="Control" parent="NinePatchRect/VBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="RichTextLabel" parent="NinePatchRect/VBoxContainer2/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(800, 300)
+custom_minimum_size = Vector2(420, 800)
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/normal_font_size = 32
+size_flags_horizontal = 8
+theme = ExtResource("3_32mfc")
 text = "Developer/Programmer:
 Gilad Levkowitz
+
 Art: 
 Wizard- KingBell
 world- Anokolisa
-SFX:
-UI- Free_sound_community
-Music:
-Menue - Gilad Levkowitz
 
+SFX:
+UI- Free_sound community
+
+Music:
+Gilad Levkowitz
+
+Dialog system:
+made with Dialogic!
 "
+
+[node name="Control" type="Control" parent="NinePatchRect/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
 
 [node name="margin" type="MarginContainer" parent="NinePatchRect/VBoxContainer2"]
 layout_mode = 2

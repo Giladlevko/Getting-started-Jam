@@ -2,15 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dki28f1b74t3j" path="res://scripts/main_menue.gd" id="1_gnign"]
 [ext_resource type="PackedScene" uid="uid://b8b141rsx8c8x" path="res://scenes/scene_transition.tscn" id="2_q62vu"]
+[ext_resource type="Texture2D" uid="uid://ctlusg8rxmng5" path="res://assets/tutorial_at_start.png" id="3_7v6t7"]
 [ext_resource type="Theme" uid="uid://c4tuypw33rj6q" path="res://theme.tres" id="3_37yx3"]
 [ext_resource type="AudioStream" uid="uid://blloddy55ltrt" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-2-203594.mp3" id="4_37yx3"]
 [ext_resource type="AudioStream" uid="uid://c7whh4ukksaya" path="res://assets/audio/click-buttons-ui-menu-sounds-effects-button-7-203601.mp3" id="5_g6ys8"]
 [ext_resource type="AudioStream" uid="uid://g6ct8qrlyhr7" path="res://assets/audio/music for main menue.mp3" id="6_g6ys8"]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_2t6ad"]
-specular_color = Color(0.162066, 0.162066, 0.162066, 1)
-
-[node name="main_menue" type="Control" node_paths=PackedStringArray("play_button", "credits_button", "quit_button")]
+[node name="main_menue" type="Control" node_paths=PackedStringArray("scene_transition", "play_button", "credits_button", "quit_button", "music")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,23 +16,26 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_gnign")
+scene_transition = NodePath("scene_transition")
 play_button = NodePath("NinePatchRect/VBoxContainer/play_button")
 credits_button = NodePath("NinePatchRect/VBoxContainer/credits_button")
 quit_button = NodePath("NinePatchRect/VBoxContainer/quit_button")
+music = NodePath("audio/music")
 
 [node name="scene_transition" parent="." instance=ExtResource("2_q62vu")]
+visible = false
 z_index = 1
 layout_mode = 1
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-self_modulate = Color(0.169245, 0.169245, 0.169245, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("CanvasTexture_2t6ad")
+texture = ExtResource("3_7v6t7")
+region_rect = Rect2(46, 11, 3, 4)
 
 [node name="vBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
 layout_mode = 1
@@ -52,8 +53,9 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="NinePatchRect/vBoxContainer"]
 layout_mode = 2
+theme = ExtResource("3_37yx3")
 theme_override_font_sizes/font_size = 48
-text = "Game Name"
+text = "Of Boors and Ores"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
 layout_mode = 1
