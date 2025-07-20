@@ -31,13 +31,8 @@ directories/dch_directory={
 "wizard": "res://addons/characters/wizard.dch"
 }
 directories/dtl_directory={
-"Rotrick_boss_dialog": "res://addons/timelines/Rotrick_boss_dialog.dtl",
-"blacksmith_1": "res://addons/timelines/blacksmith_1.dtl",
-"blacksmith_2": "res://addons/timelines/blacksmith_2.dtl",
-"blacksmith_3": "res://addons/timelines/blacksmith_3.dtl",
 "dialog_1": "res://addons/timelines/dialog_1.dtl",
-"dialog_2": "res://addons/dialogic/Example Assets/sound-effects/dialog_2.dtl",
-"dog_1bird": "res://addons/timelines/dog_1bird.dtl"
+"dialog_2": "res://addons/timelines/dialog_2.dtl"
 }
 glossary/default_case_sensitive=true
 layout/style_list=["res://addons/styles/style.tres"]
@@ -80,10 +75,11 @@ glossary/glossary_files=[]
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
+window/stretch/scale=0.75
 
 [editor_plugins]
 

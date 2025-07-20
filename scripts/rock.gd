@@ -26,7 +26,6 @@ func on_end_reached():
 func bezier(t):
 	var q0 = p_1.global_position.lerp(p_2.global_position,t)
 	var q1 = p_2.global_position.lerp(p_3.global_position,t)
-	print("p_2.global_position: ",p_2.global_position," -- ","p_1.global_position: ",p_1.global_position," -- ","p_3.global_position: ",p_3.global_position) 
 	var r = q0.lerp(q1,t)
 	return r
 
@@ -40,13 +39,10 @@ func speed_up():
 	print(SPEED,"-speed")
 
 func _physics_process(delta: float) -> void:
-	if (reached_end or Input.is_action_pressed("ui_down")) and !landed:
+	if reached_end and !landed:
 		velocity.x = 0
-		print("velocity.x",velocity.x)
-		if sprite.rotation != 4*PI:
-			var tween = get_tree().create_tween().bind_node(self)
-			tween.tween_property(sprite,"rotation",snapped(sprite.rotation + 4 * PI,PI),1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		#tween.tween_property(sprite,"position",position + Vector2(80,14),2).set_trans(1).set_ease(Tween.EASE_IN_OUT)
+		var tween = get_tree().create_tween().bind_node(self)
+		tween.tween_property(sprite,"rotation",snapped(sprite.rotation - 4 * PI,2*PI),1.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		sprite.global_position = bezier(time)
 		time+=delta/2
 		if sprite.global_position.x >= global_position.x + 160:

@@ -4,6 +4,7 @@ var dialog_string:String
 var dialog_id: int = 1
 var dialog_unlocked:bool = true
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sfx: AudioStreamPlayer = $AudioStreamPlayer
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,7 +39,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if body.velocity.x > 0:
 			SignalBus.reached_end.emit()
 			anim.play("spell")
-			
+			sfx.play()
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

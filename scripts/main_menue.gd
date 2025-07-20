@@ -16,7 +16,7 @@ func _ready() -> void:
 	buttons = [play_button,quit_button,credits_button]
 	for button in buttons:
 		button.pivot_offset = button.size / 2
-	
+	on_anim_finished()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -56,11 +56,8 @@ func on_button_mouse_entered() -> void:
 	hover.play()
 	
 
-func on_anim_finished(_anim_name):
+func on_anim_finished(_anim_name: String = "fade_out"):
 	print("connected")
-	var tween = get_tree().create_tween()
 	if music.volume_db == -75:
-		tween.tween_property(music,"volume_db",-15,1).set_ease(Tween.EASE_IN_OUT)
-	elif music.volume_db > -75:
-		tween.tween_property(music,"volume_db",-75,0.3)
-		
+		var tween = get_tree().create_tween()
+		tween.tween_property(music,"volume_db",-14,1).set_ease(Tween.EASE_IN_OUT)

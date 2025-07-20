@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://bamsqapdab6cf"]
 
 [ext_resource type="Script" uid="uid://g8jmxsie47pk" path="res://scripts/bar.gd" id="1_x848m"]
-[ext_resource type="Texture2D" uid="uid://26481yl7w3vn" path="res://assets/New Piskel.png" id="3_qdsxc"]
+[ext_resource type="Texture2D" uid="uid://cr8iljupyhy1c" path="res://assets/arrow.png" id="2_5qaxt"]
 [ext_resource type="Texture2D" uid="uid://cg5w6b3hotkqi" path="res://New Piskel.png" id="3_x848m"]
 [ext_resource type="Script" uid="uid://bbjvd57q1ue24" path="res://scripts/pause_menue.gd" id="4_7r073"]
 [ext_resource type="Texture2D" uid="uid://bs6iyrqq45uw7" path="res://assets/pausebutton.png" id="5_l1w72"]
@@ -285,7 +285,7 @@ stretch_shrink = 3
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/Control/SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(640, 360)
+size = Vector2i(426, 240)
 render_target_update_mode = 4
 
 [node name="bar" type="Control" parent="CanvasLayer/Control/SubViewportContainer/SubViewport"]
@@ -328,15 +328,15 @@ offset_top = 6.0
 offset_right = -150.0
 offset_bottom = 27.0
 grow_horizontal = 2
-texture = ExtResource("3_qdsxc")
+texture = ExtResource("2_5qaxt")
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/SubViewportContainer/SubViewport/bar/MarginContainer/backgroundRect/arrow_rect"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
+offset_left = -2.0
+offset_right = 2.0
 offset_bottom = 21.0
 grow_horizontal = 2
 color = Color(1, 1, 1, 0)
@@ -507,7 +507,7 @@ pitch_scale = 2.0
 
 [node name="fail" type="AudioStreamPlayer" parent="audio"]
 stream = ExtResource("6_nqcov")
-volume_db = 5.0
+volume_db = 12.0
 pitch_scale = 0.4
 
 [connection signal="mouse_entered" from="CanvasLayer/Control/Control/pause_menue/HBoxContainer/Button" to="CanvasLayer/Control/Control" method="on_button_mouse_entered"]

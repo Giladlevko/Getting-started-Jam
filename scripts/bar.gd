@@ -46,7 +46,7 @@ func start_timer(arg: String):
 	if arg == "start_timer":
 		music.play()
 		var tween_music = get_tree().create_tween().bind_node(self)
-		tween_music.tween_property(music,"volume_db",-14,6)
+		tween_music.tween_property(music,"volume_db",-13,6)
 		anim.play("fade_in")
 		await anim.animation_finished
 		if !timer_started:
@@ -100,9 +100,6 @@ func _process(_delta: float) -> void:
 	label.text = str(timer_min)+":"+str(sec) +":" + str(mili_sec)
 	
 	
-	if Input.is_action_pressed("ui_up"):
-		timer.paused=true
-		print("timer_min:",timer_min,"sec: ",sec,"mili_sec: ",mili_sec,"timer.time_left:",timer.time_left)
 	if tween and tween.is_valid():
 		if round(arrow.position.x) == start_position:
 			arrow_dir = 1
